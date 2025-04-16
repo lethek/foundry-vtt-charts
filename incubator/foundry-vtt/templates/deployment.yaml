@@ -61,10 +61,6 @@ spec:
           - name: CONTAINER_CACHE
             value: {{ .Values.container.cache }}
           {{- end }}
-          {{- if .Values.container.cacheSize }}
-          - name: CONTAINER_CACHE_SIZE
-            value: {{ .Values.container.cacheSize | quote }}
-          {{- end }}
           {{- if .Values.container.gid }}
           - name: FOUNDRY_GID
             value: {{ .Values.container.gid | quote }}
@@ -98,55 +94,65 @@ spec:
             value: {{ .Values.container.verbose | quote }}
           {{- end }}
           # Foundry fetch files only
+          {{- if .Values.foundryvtt.username }}
           - name: FOUNDRY_USERNAME
-            {{- if .Values.foundryvtt.username.useSecret -}}
+            {{- if .Values.foundryvtt.username.secretName }}
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.foundryvtt.username.secretName }}
                 key: {{ .Values.foundryvtt.username.secretKey }}
             {{- else }}
-            value: {{ .Values.foundryvtt.username | quote }}
-            {{- end -}}
+            value: {{ .Values.foundryvtt.username.value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.foundryvtt.password }}
           - name: FOUNDRY_PASSWORD
-            {{- if .Values.foundryvtt.password.useSecret -}}
+            {{- if .Values.foundryvtt.password.secretName }}
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.foundryvtt.password.secretName }}
                 key: {{ .Values.foundryvtt.password.secretKey }}
             {{- else }}
-            value: {{ .Values.foundryvtt.password | quote }}
-            {{- end -}}
+            value: {{ .Values.foundryvtt.password.value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.foundryvtt.releaseUrl }}
           - name: FOUNDRY_RELEASE_URL
-            {{- if .Values.foundryvtt.releaseUrl.useSecret -}}
+            {{- if .Values.foundryvtt.releaseUrl.secretName }}
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.foundryvtt.releaseUrl.secretName }}
                 key: {{ .Values.foundryvtt.releaseUrl.secretKey }}
             {{- else }}
-            value: {{ .Values.foundryvtt.releaseUrl | quote }}
-            {{- end -}}
+            value: {{ .Values.foundryvtt.releaseUrl.value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.foundryvtt.adminPassword }}
           - name: FOUNDRY_ADMIN_KEY
-            {{- if .Values.foundryvtt.adminPassword.useSecret -}}
+            {{- if .Values.foundryvtt.adminPassword.secretName }}
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.foundryvtt.adminPassword.secretName }}
                 key: {{ .Values.foundryvtt.adminPassword.secretKey }}
             {{- else }}
-            value: {{ .Values.foundryvtt.adminPassword | quote }}
-          {{- end -}}
+            value: {{ .Values.foundryvtt.adminPassword.value | quote }}
+            {{- end }}
+          {{- end }}
           {{- if .Values.foundryvtt.language }}
           - name: FOUNDRY_LANGUAGE
             value: {{ .Values.foundryvtt.language }}
           {{- end }}
+          {{- if .Values.foundryvtt.licenseKey }}
           - name: FOUNDRY_LICENSE_KEY
-            {{- if .Values.foundryvtt.licenseKey.useSecret -}}
+            {{- if .Values.foundryvtt.licenseKey.secretName }}
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.foundryvtt.licenseKey.secretName }}
                 key: {{ .Values.foundryvtt.licenseKey.secretKey }}
             {{- else }}
-            value: {{ .Values.foundryvtt.licenseKey | quote }}
-            {{- end -}}
+            value: {{ .Values.foundryvtt.licenseKey.value | quote }}
+            {{- end }}
+          {{- end }}
           {{- if .Values.foundryvtt.minifyStaticFiles }}
           - name: FOUNDRY_MINIFY_STATIC_FILES
             value: {{ .Values.foundryvtt.minifyStaticFiles | quote }}
@@ -243,9 +249,6 @@ spec:
         hostPath:
           path: {{ .Values.persistence.bind.hostpath }}
           type: Directory
-    {{- else if and (.Values.persistence.dataDir.enabled) (.Values.persistence.dataDir.claimName) }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.persistence.dataDir.claimName }}
     {{- else if .Values.persistence.dataDir.enabled }}
         persistentVolumeClaim:
           claimName: {{ template "foundry-vtt.fullname" . }}

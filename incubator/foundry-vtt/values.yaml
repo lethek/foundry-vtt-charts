@@ -219,40 +219,36 @@ foundryvtt:
   ### All configurations details are provided here: https://foundryvtt.com/article/hosting/
   ### All supported environment variables can be found here: https://github.com/felddy/foundryvtt-docker/README.md
 
-  ## Account username or email address for foundryvtt.com. Required for downloading an application distribution.
-  # username: ""
-  username:
-    useSecret: true
-    secretName: somesecret
-    secretKey: somevalue
-
-  ## Account password for foundryvtt.com. Required for downloading an application distribution.
-  # password: password_here
-  password:
-    useSecret: true
-    secretName: somesecret
-    secretKey: somevalue
-
-  ##  S3 pre-signed URL generate from the user's profile.  Required for downloading an application distribution.
-  # releaseUrl: ""
-  releaseUrl:
-    useSecret: true
-    secretName: somesecret
-    secretKey: somevalue
-
-  ## Admin password. Default: admin
-  # adminPassword: "admin_password_here"
-  adminPassword:
-    useSecret: true
-    secretName: somesecret
-    secretKey: somevalue
-
-  ## The license key to install. e.g.; AAAA-BBBB-CCCC-DDDD-EEEE-FFFF If left unset, a license key will be fetched when using account authentication. If multiple license keys are associated with an account, one will be chosen at random. Specific licenses can be selected by passing in an integer index. The first license key being 1.
-  # licenseKey: license_key_here
-  licenseKey:
-    useSecret: true
-    secretName: somesecret
-    secretKey: somevalue
+#  ## Account username or email address for foundryvtt.com. Required for downloading an application distribution.
+#  # username: ""
+#  username:
+#    secretName: somesecret
+#    secretKey: somekey
+#    value: somevalue
+#
+#  ## Account password for foundryvtt.com. Required for downloading an application distribution.
+#  # password: password_here
+#  password:
+#    secretName: somesecret
+#    secretKey: somekey
+#
+#  ##  S3 pre-signed URL generate from the user's profile.  Required for downloading an application distribution.
+#  # releaseUrl: ""
+#  releaseUrl:
+#    secretName: somesecret
+#    secretKey: somekey
+#
+#  ## Admin password. Default: admin
+#  # adminPassword: "admin_password_here"
+#  adminPassword:
+#    secretName: somesecret
+#    secretKey: somekey
+#
+#  ## The license key to install. e.g.; AAAA-BBBB-CCCC-DDDD-EEEE-FFFF If left unset, a license key will be fetched when using account authentication. If multiple license keys are associated with an account, one will be chosen at random. Specific licenses can be selected by passing in an integer index. The first license key being 1.
+#  # licenseKey: license_key_here
+#  licenseKey:
+#    secretName: somesecret
+#    secretKey: somekey
 
   ## A custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.
   hostname: "foundry.domain.com"
