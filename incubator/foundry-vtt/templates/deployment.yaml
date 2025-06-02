@@ -61,10 +61,6 @@ spec:
           - name: CONTAINER_CACHE
             value: {{ .Values.container.cache }}
           {{- end }}
-          {{- if .Values.container.gid }}
-          - name: FOUNDRY_GID
-            value: {{ .Values.container.gid | quote }}
-          {{- end }}
           {{- if .Values.container.patches }}
           - name: CONTAINER_PATCHES
             value: {{ .Values.container.patches }}
@@ -82,12 +78,8 @@ spec:
             value: {{ .Values.container.preserveOwner }}
           {{- end }}
           {{- if .Values.container.timezone }}
-          - name: TIMEZONE
+          - name: TZ
             value: {{ .Values.container.timezone }}
-          {{- end }}
-          {{- if .Values.container.uid }}
-          - name: FOUNDRY_UID
-            value: {{ .Values.container.uid | quote }}
           {{- end }}
           {{- if .Values.container.verbose }}
           - name: CONTAINER_VERBOSE
